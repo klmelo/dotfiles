@@ -94,38 +94,37 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.85;
+float alpha = 0.87;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	/* 8 normal colors */
-	"#3b4252", /* black   */
-	"#bf616a", /* red     */
-	"#a3be8c", /* green   */
-	"#ebcb8b", /* yellow  */
-	"#81a1c1", /* blue    */
-	"#b48ead", /* magenta */
-	"#88c0d0", /* cyan    */
-	"#e5e9f0", /* white   */
- 
+  /* 8 normal colors */
+  [0] = "#322a2c", /* black   */
+  [1] = "#a04363", /* red     */
+  [2] = "#9b9329", /* green   */
+  [3] = "#bf7a29", /* yellow  */
+  [4] = "#6a8c8c", /* blue    */
+  [5] = "#856774", /* magenta */
+  [6] = "#757978", /* cyan    */
+  [7] = "#bcbcaf", /* white   */
 
-	/* 8 bright colors */
-       	"#4c566a", /* black   */
-	"#bf616a", /* red     */
-	"#a3be8c", /* green   */
-	"#ebcb8b", /* yellow  */
-	"#81a1c1", /* blue    */
-	"#b48ead", /* magenta */
-	"#8fbcbb", /* cyan    */
-	"#eceff4", /* white   */
+  /* 8 bright colors */
+  [8]  = "#46423b", /* black   */
+  [9]  = "#ae837a", /* red     */
+  [10] = "#b4aa30", /* green   */
+  [11] = "#c7a551", /* yellow  */
+  [12] = "#74999e", /* blue    */
+  [13] = "#9c818e", /* magenta */
+  [14] = "#9fa590", /* cyan    */
+  [15] = "#c1c4bc", /* white   */
 
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#ffffff",
-	"#000000",
-	"#d8dee9", /* default foreground colour */
-	"#000000", /* default background colour */
+  [255] = 0,
+	
+  /* more colors can be added after 255 to use with DefaultXX */
+  "#ffffff",
+  "#000000",
+  "#d8dee9", /* default foreground colour */
+  "#000000", /* default background colour */
 };
 
 
