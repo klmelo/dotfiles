@@ -1,0 +1,136 @@
+;; Commentary: MELO'S CONFIG FOR EMACS
+
+;;REPOS
+(require 'package)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			  ("ELPA" . "http://tromey.com/elpa/")
+                          ("gnu" . "http://elpa.gnu.org/packages/")) )
+
+;; C IDENTIFY
+(setq c-default-style "linux"
+      c-basic-offset 4)
+
+;; ELECTRIC PAIR
+(electric-pair-mode 1)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(canlock-password "0e1bc61c8b45c7080b255bf8b7a1ee937941f77e")
+ '(custom-safe-themes
+   '("f4d1b183465f2d29b7a2e9dbe87ccc20598e79738e5d29fc52ec8fb8c576fcfd" "4b6cc3b60871e2f4f9a026a5c86df27905fb1b0e96277ff18a76a39ca53b82e1" "10e5d4cc0f67ed5cafac0f4252093d2119ee8b8cb449e7053273453c1a1eb7cc" "f5f80dd6588e59cfc3ce2f11568ff8296717a938edd448a947f9823a4e282b66" "456697e914823ee45365b843c89fbc79191fdbaff471b29aad9dcbe0ee1d5641" "38c0c668d8ac3841cb9608522ca116067177c92feeabc6f002a27249976d7434" "4c7228157ba3a48c288ad8ef83c490b94cb29ef01236205e360c2c4db200bb18" default))
+ '(elcord-quiet t)
+ '(package-selected-packages
+   '(auto-complete flycheck all-the-icons neotree doom-themes emms nord-theme lsp-mode gcmh elcord)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;DOOM THEMES PROVIDED BY PACKAGE DOOM-THEMES
+
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-ir-black t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+
+;;DISABLING TOP BARS
+
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+
+
+;; EMAIL & NEWSGROUP
+
+;;gnus news
+(setq gnus-select-method '(nntp "antartida.xyz"))
+
+;;email storage
+; Get email, and store in nnml:
+(setq gnus-secondary-select-methods '((nnimap "mail.riseup.net")))
+
+;;Set name and e-mail
+; Set name and email:
+(setq user-full-name "Melo"
+      user-mail-address "klmelo@riseup.net"
+      smtpmail-smtp-server "mail.riseup.net"    ; $SMTPSERVER
+      smtpmail-default-smtp-server "mail.riseup.net"
+      send-mail-function   'smtpmail-send-it ;
+      smtpmail-smtp-service 587)
+
+(setq smtpmail-auth-credentials "~/.authinfo.epg")
+(add-to-list 'gnus-secondary-select-methods
+        '(nnimap "mail.riseup.net"
+           (nnimap-address "mail.riseup.net")
+           (nnimap-server-port 993)
+           (nnimap-stream ssl)
+	   (nnir-search-engine imap)
+           (nnimap-authinfo-file "~/.authinfo.epg")
+           )
+        )
+
+;;STORE E-MAILS ON RISEUP
+ (setq gnus-message-archive-method
+       '(nnimap "mail.riseup.net"))
+
+;;TOPICS ALWAYS ACTIVE
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+;;SUMMARY CUSTOMIZATION
+(setq gnus-summary-line-format "%U%R%z %d  %-30n  %B%s\n")
+
+;;SHOW CLOSED TOPICS
+(setq gnus-fetch-old-headers t)
+
+;;LINES ON LEFT
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+;;NEOTREE
+(use-package neotree
+  :ensure t
+  :bind (("C-;" . 'neotree-toggle)))
+
+;;SYNTAX HIGHLIGHT AND WARNINGS
+(global-flycheck-mode)
+
+;;KEYBINDS
+(global-set-key (kbd "C-<tab>" ) 'other-window)
+(global-set-key (kbd "M-<up>") 'enlarge-window)
+(global-set-key (kbd "M-<down>") 'shrink-window)
+(global-set-key (kbd "M-<left>") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-<right>") 'shrink-window-horizontally)
+
+;;ESHELL TOGGLE
+(require 'eshell-toggle)
+(global-set-key (kbd "s-s") 'eshell-toggle)
+
+;;AUTOCOMPLETE
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+     (global-auto-complete-mode t)))
+
+;;TRANSPARENCY
+(set-frame-parameter nil 'alpha-background 87)
+(add-to-list 'default-frame-alist '(alpha-background . 70))

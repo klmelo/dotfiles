@@ -1,0 +1,57 @@
+ls
+neofetch
+ls
+gcc -o teste.c a.o
+gcc teste.c -o a.o
+gcc teste.c -o a.o
+./a.o 
+ls
+neofetch
+ls
+ls
+git add --all
+git commit -m "post31"
+git push -u origin main
+git add --all
+git commit -m "post31 fix"
+git push -u origin main
+git add --all
+git commit -m "post31 fix"
+git push -u origin main
+ls
+git add --all
+git commit -m "post 32"
+git push -u origin main
+ls
+cat ~/.emacs.d/init.el 
+ls
+ls
+ls
+rm config.h
+sudo make install clean
+ls
+cd
+cd gits/dotfiles/
+git add --all
+cp ~/goth.png ~/gits/dotfiles/
+git add --all
+git commit -m "Melhores cores"
+git push -u origin main
+cd
+cd estudos/
+ls
+cd lab1/
+ls
+cd a1/
+ls
+gcc main.c 
+|           ~~~~~~~ ^
+gcc main.c 
+ls
+./a.out 
+ls
+cd klmelo.github.io/
+ls
+cd posts/
+mv post33.html rascunho33.html
+touch post33.html
