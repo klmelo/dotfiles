@@ -1,16 +1,34 @@
 --- dwm.c
 +++ dwm.c
-@@ -1215,6 +1334,13 @@ maprequest(XEvent *e)
- 	static XWindowAttributes wa;
- 	XMapRequestEvent *ev = &e->xmaprequest;
+@@ -58,7 +58,7 @@
  
-+	Client *i;
-+	if ((i = wintosystrayicon(ev->window))) {
-+		sendevent(i->win, netatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_WINDOW_ACTIVATE, 0, systray->win, XEMBED_EMBEDDED_VERSION);
-+		resizebarwin(selmon);
-+		updatesystray();
-+	}
-+
- 	if (!XGetWindowAttributes(dpy, ev->window, &wa))
- 		return;
- 	if (wa.override_redirect)
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+-enum { SchemeNorm, SchemeSel, SchemeLast }; /* color schemes */
++enum { SchemeNorm, SchemeSel, SchemeUrg, SchemeLast }; /* color schemes */
+ enum { NetSupported, NetWMName, NetWMState,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
+@@ -1537,6 +1537,9 @@ setup(void) {
+ 	scheme[SchemeSel].border = drw_clr_create(drw, selbordercolor);
+ 	scheme[SchemeSel].bg = drw_clr_create(drw, selbgcolor);
+ 	scheme[SchemeSel].fg = drw_clr_create(drw, selfgcolor);
++	scheme[SchemeUrg].border = drw_clr_create(drw, urgbordercolor);
++	scheme[SchemeUrg].bg = drw_clr_create(drw, selbgcolor);
++	scheme[SchemeUrg].fg = drw_clr_create(drw, selfgcolor);
+ 	/* init bars */
+ 	updatebars();
+ 	updatestatus();
+@@ -1982,8 +1985,11 @@ updatewmhints(Client *c) {
+ 			wmh->flags &= ~XUrgencyHint;
+ 			XSetWMHints(dpy, c->win, wmh);
+ 		}
+-		else
++		else {
+ 			c->isurgent = (wmh->flags & XUrgencyHint) ? True : False;
++			if (c->isurgent)
++				XSetWindowBorder(dpy, c->win, scheme[SchemeUrg].border->pix);
++		}
+ 		if(wmh->flags & InputHint)
+ 			c->neverfocus = !wmh->input;
+ 		else

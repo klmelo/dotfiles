@@ -17,12 +17,15 @@ static const char col_fundo[]       = "#070302";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_destaque[]    = "#381f0f";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_fundo, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_destaque,  col_destaque  },
-};
+static const char col_destaque[]    = "#385c84";
+
+#include "/home/evaluator/.cache/wal/colors-wal-dwm.h"
+//
+//   static const char *colors[][3]      = {
+//	/*               fg         bg         border   */
+//	[SchemeNorm] = { col_gray3, col_fundo, col_gray2 },
+//	[SchemeSel]  = { col_gray4, col_destaque,  col_destaque  },
+//}; 
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -35,8 +38,9 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 1,       0,           -1 },
-	{ "Steam",    NULL, 	  NULL,       1 << 4, 	    0, 		 -1 },
-	{ "minecraft-launcher", NULL, NULL, 1 << 4, 0, -1},
+	{ "steam",    NULL, 	  NULL,       1 << 2, 	    1, 		 -1 },
+	{ "discord",  NULL,	  NULL,	      1 << 3,	    0,		 -1 },
+	{ "minecraft-launcher", NULL, NULL, 1 << 4, 1, -1},
 };
 
 /* layout(s) */
@@ -65,12 +69,12 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_fundo, "-nf", col_gray3, "-sb", col_destaque, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+		{ MODKEY,			XK_d,          spawn,                  {.v = (const char*[]){ "dmenu_run", "-fn", "monospace:size=8", NULL } } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
