@@ -1,0 +1,20 @@
+general {
+    output_format = "i3bar"
+    colors = true
+}
+
+order += "volume master"
+order += "time"
+
+volume master {
+        format = "volume: %volume"
+        format_muted = "volume: muted (%volume)"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+
+time {
+    format = "%A, %d/%m/%Y; %H:%M"
+}
+
